@@ -31,7 +31,7 @@ var sendRequest1 = function(fileName,i) {
             }
         }
         else {
-            console.log("end result" + JSON.stringify(data, null, 4));
+            //console.log("end result" + JSON.stringify(data, null, 4));
             data.fileNo= i;
             return data;
         }
