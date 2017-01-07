@@ -1,31 +1,86 @@
-//=========================== get name of the movie out of the raw file or folder name==================
-//============================and choose one of them as the movie title=================================
-//============================== the approach i am using here is ========================================
-//================================= if the movie name is ==================================================
-//              Pet.2016.HDRip.XViD-ETRG
-// then first check if it contains "." or " "
-// if it contains . then remove the last part of the string (then the string would be Pet.201.HDRip) and send the http request to the api
-// else do the same, remove another last part(then the string would be Pet.2016) 
-// repeat it untill there is no "." or " " left
-// if the http request get the result in any case, return true as well and stop furthur 
+
+const http = require('http');
+const httpRequest = require('./connect-api').httpRequest;
+
+/*
+    sendRequest - I am a the most imp function in this whole app.
+                I take the name of the file and send a httpRequest 
+                if I get an error of movie not found, I twerk the title a bit like as removing the words after a "." or " "
+                and then send again the httpRequest until I dont get the desired result 
+                or there is no scopt left of such twerking
+ */
+
+var sendRequest = function(fileName){
+
+    return new Promise(function (resolve,reject) {
+            
+        httpRequest(fileName).then(function (data) {  
+
+    //console.log("resolve" + JSON.stringify(data,null,4));
+try{
+
+    console.log("this is the try block");
+    if(data.Error==="Movie not found!"){
+        console.log("movie not found");
+
+        if(fileName.includes(".")){
+        var lastIndex = fileName.lastIndexOf(".");}
+
+        if(fileName.includes(" ")){
+            var lastIndex = fileName.lastIndexOf(" ");
+        }
+
+        str = fileName.substring(0, lastIndex);
+
+        console.log(str);
+        if(str!==fileName){
+           // httpRequest(str);
+           sendRequest(str);
+        }
+        else{
+            // fileName = str;
+            // var lastIndex = fileName.lastIndexOf(".");
+            // str = fileName.substring(0, lastIndex);
+
+            // if(str!==fileName){
+            //     sendRequest(str);
+            // }
 
 
-var getNameFromRaw = function (str) { 
+            // else{
+            console.log("this is the end");
+            reject("this is the end");
+            //}
+        }
 
-    if(str.includes(".")==false){
-        return "";
-    }
-    else{
-
-   
-var lastIndex = str.lastIndexOf(".");
-
-str = str.substring(0, lastIndex);
-console.log(str);
-return getNameFromRaw(str);
-
-    }
- };
+        
 
 
- 
+
+
+
+}
+else{
+    console.log("mil gayyi");
+    resolve(data);
+}
+
+}catch(e){
+    console.log("this is the data " + data);
+    resolve(data);
+}
+    
+}).catch(function (err) {  
+    reject(err);
+    console.log("error " + err); 
+});
+            
+
+      });
+
+};
+
+
+module.exports = {
+    sendRequest
+};

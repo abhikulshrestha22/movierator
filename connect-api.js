@@ -44,7 +44,7 @@ var httpRequest = function (url) {
             res.on('end', () => {
             try {
              let parsedData = JSON.parse(rawData);
-             console.log("parse data"+ JSON.stringify(parsedData,null,4));
+             //console.log("parse data"+ JSON.stringify(parsedData,null,4));
              resolve(parsedData);
                  } catch (e) {
              console.log(e.message);
