@@ -14,4 +14,4 @@ Rate your movies in the folder based on IMDB score.
 
 ###4. And its done! Your movies are rated! 
 
-![](https://github.com/abhikulshrestha22/movierator/blob/master/untitled.png)     
+![](https://github.com/abhikulshrestha22/movierator/blob/master/Untitled.png)     
