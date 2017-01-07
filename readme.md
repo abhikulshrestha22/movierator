@@ -9,8 +9,10 @@ Rate your movies in the folder based on IMDB score.
 ###2. Download or clone this project
 
 ###3. Open command prompt in the downloaded or cloned folder and run "node server.js 'path' "
+
+![](https://github.com/abhikulshrestha22/movierator/blob/master/Untitled1.png)   
     
-     Example of path is "C:\Users\abhishek\Desktop\demo-folder"
+     Example of path is "G:\Movies"
 
 ###4. And its done! Your movies are rated! 
 
