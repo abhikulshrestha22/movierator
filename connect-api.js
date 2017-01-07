@@ -33,7 +33,7 @@ var httpRequest = function (url) {
             }
 
             if(error){
-                console.log(error.message);
+                //console.log(error.message);
                 res.resume();
                 reject(error);
             }
@@ -45,14 +45,15 @@ var httpRequest = function (url) {
             try {
              let parsedData = JSON.parse(rawData);
              //console.log("parse data"+ JSON.stringify(parsedData,null,4));
+             //resolve(parsedData);
              resolve(parsedData);
                  } catch (e) {
-             console.log(e.message);
+             //console.log(e.message);
             reject(e);
              }
          });
          }).on('error', (e) => {
-         console.log(`Got error: ${e.message}`);
+         //console.log(`Got error: ${e.message}`);
         });
             
 

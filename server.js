@@ -21,11 +21,11 @@ var path = process.argv[2];
 
           sendRequest(files[i]).then(function (data) {
 
-            console.log("data mil gaya hai ");
-          console.log(data);
+            //console.log("data mil gaya hai ");
+            console.log(data + "\n");
             }).catch(function(err){
-            console.log("we got the error");
-            console.log(err);
+            //console.log("we got the error");
+            console.log("end Error is " + err + "\n");
             });
 
 
@@ -67,6 +67,11 @@ var res = fileName.split('.');
 //console.log(res);
 
 
+var getRatingFromData = function (data) { 
+
+  return data.imdbRating;
+
+ };
 
 
 

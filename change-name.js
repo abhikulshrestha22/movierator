@@ -12,16 +12,19 @@ const httpRequest = require('./connect-api').httpRequest;
 
 var sendRequest = function(fileName){
 
+    //console.log("in the sendRequest" + fileName);
+
     return new Promise(function (resolve,reject) {
             
         httpRequest(fileName).then(function (data) {  
+            //console.log("mai bhut hu");
 
     //console.log("resolve" + JSON.stringify(data,null,4));
 try{
 
-    console.log("this is the try block");
+    //console.log("this is the try block");
     if(data.Error==="Movie not found!"){
-        console.log("movie not found");
+        //console.log("movie not found");
 
         if(fileName.includes(".")){
         var lastIndex = fileName.lastIndexOf(".");}
@@ -32,7 +35,7 @@ try{
 
         str = fileName.substring(0, lastIndex);
 
-        console.log(str);
+        //console.log(str);
         if(str!==fileName){
            // httpRequest(str);
            sendRequest(str);
@@ -48,7 +51,7 @@ try{
 
 
             // else{
-            console.log("this is the end");
+            //console.log("this is the end");
             reject("this is the end");
             //}
         }
@@ -61,18 +64,20 @@ try{
 
 }
 else{
-    console.log("mil gayyi");
+    //console.log("mil gayyi");
+    console.log("end result" + JSON.stringify(data,null,4));
+
     resolve(data);
 }
 
 }catch(e){
-    console.log("this is the data " + data);
+    //console.log("this is the data " + JSON.stringify(data,null,4));
     resolve(data);
 }
     
 }).catch(function (err) {  
     reject(err);
-    console.log("error " + err); 
+    //console.log("error " + err); 
 });
             
 
