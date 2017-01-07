@@ -10,82 +10,47 @@ const httpRequest = require('./connect-api').httpRequest;
                 or there is no scopt left of such twerking
  */
 
-var sendRequest = function(fileName){
 
-    //console.log("in the sendRequest" + fileName);
-
-    return new Promise(function (resolve,reject) {
-            
-        httpRequest(fileName).then(function (data) {  
-            //console.log("mai bhut hu");
-
-    //console.log("resolve" + JSON.stringify(data,null,4));
-try{
-
-    //console.log("this is the try block");
-    if(data.Error==="Movie not found!"){
-        //console.log("movie not found");
-
-        if(fileName.includes(".")){
-        var lastIndex = fileName.lastIndexOf(".");}
-
-        if(fileName.includes(" ")){
-            var lastIndex = fileName.lastIndexOf(" ");
+var sendRequest1 = function(fileName) {
+    return httpRequest(fileName).then(function(data) {
+        try{
+        if (data.Error==="Movie not found!") {
+            if (fileName.includes(".")) {
+                var lastIndex = fileName.lastIndexOf(".");
+            }
+            if (fileName.includes(" ")) {
+                var lastIndex = fileName.lastIndexOf(" ");
+            }
+            str = fileName.substring(0, lastIndex);
+            if (str!==fileName) {
+                return sendRequest1(str);
+            }
+            else {
+                console.log("Movie not found");
+                throw new Error("Movie not found");
+            }
         }
-
-        str = fileName.substring(0, lastIndex);
-
-        //console.log(str);
-        if(str!==fileName){
-           // httpRequest(str);
-           sendRequest(str);
+        else {
+            //console.log("end result" + JSON.stringify(data, null, 4));
+            return data;
         }
-        else{
-            // fileName = str;
-            // var lastIndex = fileName.lastIndexOf(".");
-            // str = fileName.substring(0, lastIndex);
-
-            // if(str!==fileName){
-            //     sendRequest(str);
-            // }
-
-
-            // else{
-            //console.log("this is the end");
-            reject("this is the end");
-            //}
-        }
-
-        
-
-
-
-
-
-}
-else{
-    //console.log("mil gayyi");
-    console.log("end result" + JSON.stringify(data,null,4));
-
-    resolve(data);
-}
-
-}catch(e){
-    //console.log("this is the data " + JSON.stringify(data,null,4));
-    resolve(data);
-}
-    
-}).catch(function (err) {  
-    reject(err);
-    //console.log("error " + err); 
-});
-            
-
-      });
-
+    }catch(e){
+        //return e;
+        throw new Error(e);
+    }
+    }).catch(function(err){
+       throw err;
+    });
 };
 
 
+
+
+
+
+
+
 module.exports = {
-    sendRequest
+    
+    sendRequest1
 };

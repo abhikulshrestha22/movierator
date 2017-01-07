@@ -3,7 +3,7 @@ const fs = require('fs');
 const http = require('http');
 
 const httpRequest = require('./connect-api').httpRequest;
-const sendRequest = require('./change-name').sendRequest;
+const sendRequest = require('./change-name').sendRequest1;
 
 var path = process.argv[2];
 
@@ -21,11 +21,12 @@ var path = process.argv[2];
 
           sendRequest(files[i]).then(function (data) {
 
-            //console.log("data mil gaya hai ");
-            console.log(data + "\n");
+            console.log("data mil gaya hai ");
+            console.log(JSON.stringify(data,null,4) + "\n");
             }).catch(function(err){
+
             //console.log("we got the error");
-            console.log("end Error is " + err + "\n");
+            console.log( err + "\n");
             });
 
 
