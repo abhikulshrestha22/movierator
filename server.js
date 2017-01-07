@@ -16,26 +16,34 @@ var path = process.argv[2];
        console.log(err);
         return;}
 
-        for(i=0;i<files.length;i++){
+        for(var i=0;i<files.length;i++){
 
 
-          sendRequest(files[i]).then(function (data) {
+          sendRequest(files[i], i).then(function (data) {
 
-            console.log("data mil gaya hai ");
-            console.log(JSON.stringify(data,null,4) + "\n");
+            var fileNo = data.fileNo;
+            
+            
+        if(data.imdbRating){
+             fs.rename(path + "/"+ files[fileNo] , path +"/" + "(-"+ data.imdbRating + "-) " + files[fileNo] ,function (err) {
+               data = null;
+              if(err) {return;};
+              
+              });
+        } 
+
+
+
             }).catch(function(err){
 
             //console.log("we got the error");
-            console.log( err + "\n");
+            //console.log( err + "\n");
             });
 
 
 
 
-  //         fs.rename(path + "/"+ files[i] , path + '/abc' + files[i] ,function (err) {
-  //    if(err) throw err;
-  //    console.log("rename complete");
-  //  });
+         console.log((i+1) + " of " + files.length + " completed");
 
         }
         

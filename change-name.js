@@ -11,7 +11,7 @@ const httpRequest = require('./connect-api').httpRequest;
  */
 
 
-var sendRequest1 = function(fileName) {
+var sendRequest1 = function(fileName,i) {
     return httpRequest(fileName).then(function(data) {
         try{
         if (data.Error==="Movie not found!") {
@@ -23,15 +23,16 @@ var sendRequest1 = function(fileName) {
             }
             str = fileName.substring(0, lastIndex);
             if (str!==fileName) {
-                return sendRequest1(str);
+                return sendRequest1(str,i);
             }
             else {
-                console.log("Movie not found");
+                //console.log("Movie not found");
                 throw new Error("Movie not found");
             }
         }
         else {
-            //console.log("end result" + JSON.stringify(data, null, 4));
+            console.log("end result" + JSON.stringify(data, null, 4));
+            data.fileNo= i;
             return data;
         }
     }catch(e){
